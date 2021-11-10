@@ -1,0 +1,30 @@
+<%- include partials/header.ejs %> 
+<%- include partials/main_nav.ejs %> 
+  <!-- Main -->
+  <main class="container-fluid" style="padding-left:0;padding-right: 0;height: 500px;">
+    <div class="jumbotron">
+      <% if (title == "About") { %> 
+        <!-- About Page -->
+        <%- include partials/about.ejs %>
+      <% } else if (title == "Services"){ %>
+        <!-- Services Page --> 
+        <%- include partials/services.ejs %>
+      <% } else if (title == "Contact"){ %>
+        <!-- Contacts Page --> 
+        <%- include partials/contact.ejs %>
+      <% } else if (title == "Home"){ %> 
+        <!-- Home Page -->
+        <%- include partials/home.ejs %>
+      <% } else if (title == "Products"){ %> 
+        <!-- Products Page -->
+        <%- include partials/products.ejs %>
+      <% } else { %> 
+          <section></section>
+       <% } %>
+      
+      
+    </div>
+  </main>
+  <%- include partials/bottom_nav.ejs %> 
+  <%- include partials/footer.ejs %> 
+  
