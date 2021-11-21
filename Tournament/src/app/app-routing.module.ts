@@ -8,6 +8,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { TournamentListComponent } from './tournament-list/tournament-list.component';
+import { AuthComponent } from './admin/auth/auth.component';
+import { RegisterComponent } from './admin/register/register.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent, data: {title: 'Home'}},
@@ -17,7 +19,9 @@ const routes: Routes = [
   {path: 'services', component: ServicesComponent, data: {title: 'Services'}},
   {path: 'tournament-list', component: TournamentListComponent, data: {title: 'Tournaments'}},
   {path: 'add-tournament', component: AddTournamentComponent, data: {title: 'Add Tournament'}},
-  { path: 'edit-tournament/:id', component: EditTournamentComponent, data: {title: 'Add Tournament'}},
+  {path: 'edit-tournament/:id', component: EditTournamentComponent, data: {title: 'Edit Tournament'}},
+  {path: 'login', data: {title: 'Login'},  component: AuthComponent},
+  {path: 'register', data: {title: 'Register'},  component: RegisterComponent},
   {path: '', redirectTo: '/tournament-list', pathMatch: 'full'}
 ];
 

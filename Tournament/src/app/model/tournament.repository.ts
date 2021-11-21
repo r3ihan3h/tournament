@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Tournament } from './tournament.model';
 import { StaticDataSource } from './static.datasource';
+import { User } from './user.model';
 
 @Injectable()
 export class TournamentRepo
 {
     private tournaments: Tournament[] = [];
+    private users: User[] = [];
     private player: String[] = [];
     
     constructor(private dataSource: StaticDataSource)
@@ -58,5 +60,9 @@ export class TournamentRepo
         }).indexOf(idToRemove);
 
         this.tournaments.splice(index, 1);
+    }
+
+    createUser(data: any){
+        this.users.push(data);
     }
 }
