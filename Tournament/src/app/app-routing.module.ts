@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'edit-tournament/:id', component: EditTournamentComponent, data: {title: 'Edit Tournament'}},
   {path: 'login', data: {title: 'Login'},  component: AuthComponent},
   {path: 'register', data: {title: 'Register'},  component: RegisterComponent},
-  {path: '', redirectTo: '/tournament-list', pathMatch: 'full'}
+  {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
 @NgModule({
