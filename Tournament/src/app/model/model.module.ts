@@ -5,11 +5,12 @@ import { AuthService } from './auth.service';
 import { RestDataSource } from "./rest.datasource";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { AuthGuard } from "../admin/auth/auth.guard";
 
 @NgModule({
     imports: [HttpClientModule,FormsModule],
     providers: [TournamentRepo, StaticDataSource,
-        RestDataSource, AuthService]
+        RestDataSource, AuthService,AuthGuard]
 })
 export class ModelModule{
 

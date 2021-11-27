@@ -10,6 +10,7 @@ import { ServicesComponent } from './pages/services/services.component';
 import { TournamentListComponent } from './tournament-list/tournament-list.component';
 import { AuthComponent } from './admin/auth/auth.component';
 import { RegisterComponent } from './admin/register/register.component';
+import { AuthGuard } from './admin/auth/auth.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent, data: {title: 'Home'}},
@@ -17,12 +18,13 @@ const routes: Routes = [
   {path: 'contact', component: ContactComponent, data: {title: 'Contact'}},
   {path: 'products', component: ProductsComponent, data: {title: 'Products'}},
   {path: 'services', component: ServicesComponent, data: {title: 'Services'}},
-  {path: 'tournament-list', component: TournamentListComponent, data: {title: 'Tournaments'}},
-  {path: 'add-tournament', component: AddTournamentComponent, data: {title: 'Add Tournament'}},
-  {path: 'edit-tournament/:id', component: EditTournamentComponent, data: {title: 'Edit Tournament'}},
+  {path: 'tournament-list', component: TournamentListComponent, data: {title: 'Tournaments'}, canActivate: [AuthGuard]},
+  {path: 'add-tournament', component: AddTournamentComponent, data: {title: 'Add Tournament'}, canActivate: [AuthGuard]},
+  {path: 'edit-tournament/:id', component: EditTournamentComponent, data: {title: 'Edit Tournament'}, canActivate: [AuthGuard]},
   {path: 'login', data: {title: 'Login'},  component: AuthComponent},
   {path: 'register', data: {title: 'Register'},  component: RegisterComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'}
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

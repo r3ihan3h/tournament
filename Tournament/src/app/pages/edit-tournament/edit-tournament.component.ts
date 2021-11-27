@@ -11,6 +11,7 @@ import { TournamentRepo } from '../../model/tournament.repository';
 export class EditTournamentComponent implements OnInit {
   id!: number;
   form!: FormGroup;
+  tournament: Tournament = new Tournament();
 
   tour!: Tournament;
   constructor(
@@ -22,7 +23,7 @@ export class EditTournamentComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      id: [],
+      _id: [],
       name: ['', Validators.required],
       schedule: ['', Validators.required],
       players: ['', Validators.required]
@@ -32,10 +33,16 @@ export class EditTournamentComponent implements OnInit {
   }
   
 
-  onSubmit() {
+  onSubmit(_id:any) {
     console.log(this.form.value)
-    this.repository.updateTournament(this.form.value, this.id);
+    this.form.value['_id']= _id;
+    // this.repository.updateTournament(this.form.value, this.id);
+    // this.router.navigate(['tournament-list']);
+
+    this.repository.modifyTournament(this.form.value,_id);
     this.router.navigate(['tournament-list']);
+
+    
     // this.apiService.createUser(this.addForm.value)
     //   .subscribe( data => {
     //     this.router.navigate(['list-user']);

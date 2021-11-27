@@ -2,67 +2,93 @@ import { Injectable } from '@angular/core';
 import { Tournament } from './tournament.model';
 import { StaticDataSource } from './static.datasource';
 import { User } from './user.model';
+import { RestDataSource } from './rest.datasource';
 
 @Injectable()
-export class TournamentRepo
-{
+export class TournamentRepo {
     private tournaments: Tournament[] = [];
     private users: User[] = [];
     private player: String[] = [];
-    
-    constructor(private dataSource: StaticDataSource)
-    {
+
+    constructor(private dataSource: RestDataSource) {
         dataSource.getTournaments().subscribe(data => {
-        this.tournaments = data;
-        this.player = this.getData(data);
+            this.tournaments = data;
+            this.player = this.getData(data);
         });
     }
 
-    getData(data: any[]){
+    getData(data: any[]) {
         data.map(b => b.players)
             .filter((a, index, array) => array.indexOf(a) === index).sort()
         return data;
     }
 
-    getTournaments(player: String | null): Tournament[]
-    {
+
+
+    saveTournament(savedTournament: Tournament): void {
+        if (savedTournament._id === null || savedTournament._id === 0 || savedTournament._id === undefined) {
+            this.dataSource.addTournaments(savedTournament).subscribe(b => {
+                this.tournaments.push(savedTournament);
+            });
+        }
+        else {
+            this.dataSource.updateTournament(savedTournament).subscribe(tournament => {
+                this.tournaments.splice(this.tournaments.findIndex(b => b._id === savedTournament._id), 1, savedTournament);
+            });
+        }
+    }
+
+    getTournaments(player: String | null): Tournament[] {
         return this.tournaments
-        .filter(b => player == null || player === b.players);
+            .filter(b => player == null || player === b.players);
     }
 
-    getTournament(id: number): Tournament
-    {
-        return this.tournaments.find(b => b._id === id)!;
+    getTournament(id: any): Tournament {
+        return this.tournaments.find(b => b._id == id)!;
     }
 
-    getPlayers(): String[]
-    {
+    getPlayers(): String[] {
         return this.player;
     }
 
-    createTournament(data: any)
-    {
+    modifyTournament(savedTournament: Tournament,id: any): void {
+        if (savedTournament._id === null || savedTournament._id === 0 ) {
+            this.dataSource.addTournaments(savedTournament).subscribe(b => {
+                this.tournaments.push(savedTournament);
+            });
+        }
+        else {
+            this.dataSource.modifyTour(savedTournament,id).subscribe(tournament => {
+                this.tournaments.splice(this.tournaments.findIndex(b => b._id === savedTournament._id), 1, savedTournament);
+            });
+        }
+    }
+
+    createTournament(data: any) {
         this.tournaments.push(data);
     }
 
-    updateTournament(data: any, id: number){
-       this.tournaments.find(b => b._id === id)!.name = data.name;
-       this.tournaments.find(b => b._id === id)!.players = data.players;
-       this.tournaments.find(b => b._id === id)!.schedule = data.schedule;
-        
+    updateTournament(data: any, id: number) {
+        this.tournaments.find(b => b._id === id)!.name = data.name;
+        this.tournaments.find(b => b._id === id)!.players = data.players;
+        this.tournaments.find(b => b._id === id)!.schedule = data.schedule;
+
+    }
+    // updateOrder(updatedOrder: Order): void
+    // {
+    //   this.dataSource.updateOrder(updatedOrder).subscribe(order => {
+    //     this.orders.splice(this.orders.findIndex(o => o._id === order._id), 1, order);
+    //   });
+    // }
+
+    deleteTournament(deletedTourID: number): void {
+
+        this.dataSource.deleteTournament(deletedTourID).subscribe(tournament => {
+            this.tournaments.splice(this.tournaments.findIndex(b => b._id === deletedTourID), 1);
+        });
     }
 
-    deleteTournament(id: any){
-        let idToRemove = id;
-
-        let index = this.tournaments.map(function(item) {
-            return item._id
-        }).indexOf(idToRemove);
-
-        this.tournaments.splice(index, 1);
-    }
-
-    createUser(data: any){
+    createUser(data: any) {
         this.users.push(data);
     }
 }

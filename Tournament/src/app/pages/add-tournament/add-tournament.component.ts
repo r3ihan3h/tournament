@@ -23,7 +23,7 @@ export class AddTournamentComponent implements OnInit {
 
   ngOnInit() {
     this.tourForm = this.formBuilder.group({
-      id: [],
+      _id: [],
       name: ['', Validators.required],
       schedule: ['', Validators.required],
       players: ['', Validators.required]
@@ -33,7 +33,8 @@ export class AddTournamentComponent implements OnInit {
 
   onSubmit() {
     console.log(this.tourForm.value)
-    this.repository.createTournament(this.tourForm.value);
+   // this.repository.createTournament(this.tourForm.value);
+   this.repository.saveTournament(this.tourForm.value);
     this.router.navigate(['tournament-list']);
     // this.apiService.createUser(this.addForm.value)
     //   .subscribe( data => {

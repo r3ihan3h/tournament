@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tournament } from './tournament.model';
 import { map } from 'rxjs/operators';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from './user.model';
@@ -15,6 +16,7 @@ export class RestDataSource
 {
   user: User | null;
   baseUrl: string;
+  baseUrl1: string;
   authToken!: string;
 
   private httpOptions =
@@ -25,19 +27,54 @@ export class RestDataSource
     'Access-control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     })
   };
-
+ 
   constructor(private http: HttpClient,
               private jwtService: JwtHelperService)
   {
     this.user = new User();
+    this.baseUrl1 = `https://comp229-f2020-week10.herokuapp.com/api/`;
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
-    this.baseUrl = `https://comp229-f2020-week10.herokuapp.com/api/`;
+     this.baseUrl = `https://60c59b75ec8ef800175e13f3.mockapi.io/flightDetails/`;
   }
 
+
+  getTournaments(): Observable<Tournament[]>
+  {
+    return this.http.get<Tournament[]>(this.baseUrl + '');
+  }
+
+  addTournaments(tour: Tournament): Observable<Tournament>
+  {
+    this.loadToken();
+    return this.http.post<Tournament>(this.baseUrl + '', tour, this.httpOptions);
+  }
   
+  deleteTournament(id: Object): Observable<Tournament>
+  {
+    this.loadToken();
+    console.log(id);
+    return this.http.delete(this.baseUrl+'/'+id);
+  }
+
+  modifyTour(tour: Tournament,id: Object): Observable<Tournament>
+  {
+    this.loadToken();
+   return this.http.put<Tournament>(this.baseUrl+'/'+id, tour, this.httpOptions);
+
+    // return this.http.put<any>("https://60c59b75ec8ef800175e13f3.mockapi.io/flightDetails",id)
+    //     .pipe(map((res: any) => {
+    //       return res;
+    //     }))
+  }
+  updateTournament(tour: Tournament): Observable<Tournament>
+  {
+    this.loadToken();
+    return this.http.post<Tournament>(`${this.baseUrl}edit/${tour._id}`, tour, this.httpOptions);
+  }
+
   authenticate(user: User): Observable<any>
   {
-    return this.http.post<any>(this.baseUrl + 'login', user, this.httpOptions);
+    return this.http.post<any>(this.baseUrl1 + 'login', user, this.httpOptions);
   }
 
   storeUserData(token: any, user: User): void

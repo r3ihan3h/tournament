@@ -30,8 +30,8 @@ export class TournamentListComponent {
     return this.repository.getPlayers();
   }
 
-  deleteTour(id:any){
-    this.repository.deleteTournament(id);
+  deleteTour(_id:any){
+    this.repository.deleteTournament(_id);
     this.router.navigate(['tournament-list']);
   }
 }
