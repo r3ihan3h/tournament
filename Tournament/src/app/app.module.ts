@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+//Firebase config
+import { AngularFireModule } from 'angularfire2';
+import {AngularFirebaseModule} from 'angularfire2/database'
+import { environment } from '../environments/environment';
+
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './partials/header/header.component';
@@ -21,6 +28,19 @@ import { AuthComponent } from './admin/auth/auth.component';
 import { RegisterComponent } from './admin/register/register.component';
 
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
+
+//Firebase export
+export const firebaseConfig={
+  
+    apiKey: "AIzaSyArwkg_3Qhdj76GODRD-CT7mpZnOIaCjQY",
+    authDomain: "tournament-a4480.firebaseapp.com",
+    databaseURL: "https://tournament-a4480-default-rtdb.firebaseio.com",
+    projectId: "tournament-a4480",
+    storageBucket: "tournament-a4480.appspot.com",
+    messagingSenderId: "501650314805",
+    appId: "1:501650314805:web:c48e08a0d1e9aad105037c"
+}
+
 
 export function jwtTokenGetter(): string
 {
@@ -46,6 +66,9 @@ export function jwtTokenGetter(): string
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig), //firebase
+    AngularFireModule,  //firebase
+    AngularFirebaseModule,  //firebase
     AppRoutingModule,
     TournamentModule,
     FormsModule,
