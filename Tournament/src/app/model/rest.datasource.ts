@@ -34,7 +34,7 @@ export class RestDataSource
     this.user = new User();
     this.baseUrl1 = `https://comp229-f2020-week10.herokuapp.com/api/`;
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
-     this.baseUrl = `https://60c59b75ec8ef800175e13f3.mockapi.io/flightDetails/`;
+     this.baseUrl = `https://60c59b75ec8ef800175e13f3.mockapi.io/tournament/`;
   }
 
 
@@ -61,10 +61,6 @@ export class RestDataSource
     this.loadToken();
    return this.http.put<Tournament>(this.baseUrl+'/'+id, tour, this.httpOptions);
 
-    // return this.http.put<any>("https://60c59b75ec8ef800175e13f3.mockapi.io/flightDetails",id)
-    //     .pipe(map((res: any) => {
-    //       return res;
-    //     }))
   }
   updateTournament(tour: Tournament): Observable<Tournament>
   {
