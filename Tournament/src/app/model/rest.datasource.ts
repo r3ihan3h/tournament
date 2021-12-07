@@ -34,7 +34,7 @@ export class RestDataSource
     this.user = new User();
     this.baseUrl1 = `https://comp229-f2020-week10.herokuapp.com/api/`;
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
-     this.baseUrl = `https://60c59b75ec8ef800175e13f3.mockapi.io/tournament/`;
+     this.baseUrl = `https://tournament-a4480-default-rtdb.firebaseio.com/`;
   }
 
 
