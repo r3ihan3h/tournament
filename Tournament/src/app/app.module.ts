@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 //firebase
 import {AngularFireModule} from '@angular/fire';
+//import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {environment} from '../environments/environment';

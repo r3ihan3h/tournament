@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TournamentRepo } from 'src/app/model/tournament.repository';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +13,7 @@ import { TournamentRepo } from 'src/app/model/tournament.repository';
 export class RegisterComponent implements OnInit {
 
   constructor(
+    private firebase: AngularFireModule ,
     private formBuilder: FormBuilder,
     private router: Router, 
     private repository: TournamentRepo) { }
@@ -27,8 +30,8 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-      console.log(this.userForm.value)
-      this.repository.createUser(this.userForm.value);
+      console.log(this.firebase)
+      this.repository.createUser(this.firebase);
       this.router.navigate(['login']);
       // this.apiService.createUser(this.addForm.value)
       //   .subscribe( data => {
