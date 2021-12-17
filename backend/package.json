@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-        "deploy": "npm run build && firebase deploy"
-
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/netlify-lambda serve src",
+    "build": "react-scripts build"
   },
   "author": "jayesh",
   "license": "ISC",
